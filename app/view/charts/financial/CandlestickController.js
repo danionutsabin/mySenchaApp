@@ -5,7 +5,7 @@ Ext.define('MyApp.view.charts.financial.CandlestickController', {
     onRefresh: function() {
         var store = this.lookup('chart').getStore();
 
-        store.refreshData();
+        store.load();
     },
 
     onDownload: function() {
