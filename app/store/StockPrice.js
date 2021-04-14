@@ -17,6 +17,7 @@ Ext.define('MyApp.store.StockPrice', {
             rootProperty: 'rates',
             transform: {
                 fn: function(data){
+                    console.log(data);
                     var times = Object.keys(data.rates);
                     var values = Object.values(data.rates);
 
