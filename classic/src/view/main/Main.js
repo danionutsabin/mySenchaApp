@@ -81,6 +81,12 @@ Ext.define('MyApp.view.main.Main', {
         items: [{
             xtype: 'mainlist'
         }]
+    },{
+        title: 'Chart',
+        iconCls: 'fa-home',
+        items: [{
+            xtype: 'financial-candlestick'
+        }]
     }, {
         title: 'Users',
         iconCls: 'fa-user',

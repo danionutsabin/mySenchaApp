@@ -1,60 +1,50 @@
-Ext.define('MyApp.store.StockPrice', {
+Ext.define('SenchaApp.store.StockPrice', {
     extend: 'Ext.data.Store',
-    model: 'MyApp.model.StockPrice',
+    model: 'SenchaApp.model.StockPrice',
     alias: 'store.stock-price',
 
-    generateData: function(count) {
-        var first = {
-                time: Ext.Date.now(),
-                close: 100
-            },
-            records = [],
-            previous, i;
 
-        for (i = 0; i < count; i++) {
-            previous = records[i - 1] || first;
-            records.push(Ext.apply({
-                time: previous.time + 24 * 60 * 60 * 1000 // day interval
-            }, this.getNextPrice(previous.close)));
-        }
 
-        return records;
+    // proxy: Ext.create('Ext.data.Proxy', {
+    //     type: 'ajax',
+
+    // }),
+    proxy: {
+        type: 'rest',
+        url: 'https://api.coinlayer.com/timeframe?access_key=94ba88431b0310b32ddc1af867f90a57&start_date=2020-01-01&end_date=2020-05-31&target=USD&symbols=BTC&expand=1',
+        reader: {
+            type: 'json',
+            rootProperty: 'rates',
+            transform: {
+                fn: function(data){
+                    var times = Object.keys(data.rates);
+                    var values = Object.values(data.rates);
+
+                    var tempV = 0;
+                    var newData = values.map( (v, index) => {
+                        return {
+                            
+                            time: times[index],
+                            // ...v.BTC,
+
+                            high: v.BTC.high,
+                            low: v.BTC.low,
+                            open: (v.BTC.high - (v.BTC.high - v.BTC.rate)),
+                            close: (v.BTC.low + (v.BTC.rate - v.BTC.low))
+                        }
+                        tempV = v.BTC.sup;
+                    })
+
+
+
+                    return newData;
+                },
+                scope: this
+            }
+        },
+        cors: true,
+        method: 'GET',
+        useDefaultXhrHeader : false,
     },
-
-    getNextPrice: function(previousClose) {
-        var open = previousClose - 2 + Math.random() * 8,
-            high = open + Math.random() * 2,
-            close = open - Math.random() * 4,
-            low = close - Math.random() * 2,
-            min = Math.min(open, high, low, close);
-
-        if (min < 0) {
-            open -= min;
-            high -= min;
-            low -= min;
-            close -= min;
-        }
-
-        return {
-            open: open,
-            high: high,
-            low: low,
-            close: close
-        };
-    },
-
-    refreshData: function() {
-        this.setData(this.generateData(2 * 365));
-    },
-
-    constructor: function(config) {
-
-        config = Ext.apply({
-            data: this.generateData(2 * 365)
-        }, config);
-
-        this.callParent([config]);
-
-    }
+    autoLoad: true
 });
-()
