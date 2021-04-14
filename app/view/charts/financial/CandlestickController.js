@@ -3,7 +3,7 @@ Ext.define('MyApp.view.charts.financial.CandlestickController', {
     alias: 'controller.financial-candlestick',
 
     onRefresh: function() {
-        var store = this.getChart().getStore();
+        var store = this.lookup('chart').getStore();
 
         store.refreshData();
     },
