@@ -1,5 +1,5 @@
-Ext.define('SenchaApp.model.StockPrice', {
-    extend: 'SenchaApp.model.Base',
+Ext.define('MyApp.model.StockPrice', {
+    extend: 'MyApp.model.Base',
 
     fields: [
         {name: 'time',  type: 'date'},

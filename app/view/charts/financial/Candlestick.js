@@ -118,6 +118,3 @@ Ext.define('MyApp.view.charts.financial.Candlestick', {
     }
 
 });
-Examples
-Search
-()

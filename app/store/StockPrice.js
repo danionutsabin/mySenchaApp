@@ -1,6 +1,6 @@
-Ext.define('SenchaApp.store.StockPrice', {
+Ext.define('MyApp.store.StockPrice', {
     extend: 'Ext.data.Store',
-    model: 'SenchaApp.model.StockPrice',
+    model: 'MyApp.model.StockPrice',
     alias: 'store.stock-price',
 
 

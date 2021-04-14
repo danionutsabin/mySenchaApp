@@ -1,5 +1,5 @@
 Ext.define('MyApp.view.charts.financial.CandlestickController', {
-    extend: 'MyApp.view.chart.ChartController',
+    extend: 'Ext.app.ViewController',
     alias: 'controller.financial-candlestick',
 
     onRefresh: function() {
@@ -49,4 +49,3 @@ Ext.define('MyApp.view.charts.financial.CandlestickController', {
     }
 
 });
-()
